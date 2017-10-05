@@ -1,0 +1,7 @@
+things ive learned:
+
+turn off dropbox sync until needed.  you'll get spammed with hundreds of file updates everytime someone compiles
+
+debugging on your phone is easy. you may have to install specific drivers.  enabling development mode on phone is dependant on android version.
+
+you can simulate android devices from ide, but it can be a bit of a resource hog.
