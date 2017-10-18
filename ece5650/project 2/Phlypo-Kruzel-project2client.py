@@ -9,8 +9,18 @@ clientSocket.connect((HOST, PORT))
 while True: 
 	inputFromKeyboard = raw_input('Enter command: ') # get command from user
 	clientSocket.send(inputFromKeyboard) # send command to server
-	if (inputFromKeyboard=='exit'): # If input from user is 'exit', close connection
+	splitInput = inputFromKeyboard.split()
+	if (inputFromKeyboard == 'exit'): # If input from user is 'exit', close connection
 		break
+	elif (splitInput[0] = 'download'):
+		tempOldFile = splitInput[1]
+		with open('tempOldFile' , 'w') as oldFile:
+			newFile = clientSocket.recv()
+			if not newFile:
+				break
+			oldFile.write(newFile)
+		oldFile.close()
+		
 	
 # print 'waiting for response from server...'
 	receivedMessage = clientSocket.recv(1024) # Get reply from server

@@ -145,7 +145,7 @@ while serverRunning:
 				mOut = customerDB.remove(cDB, removeById)
 				connection.send(mOut)
 			except ValueError
-				mOut = "Invalid value.  
+				mOut = "Invalid value."  
 		
 		elif (command[0] == "exit"):
 			mOut = "Connection Closed"
