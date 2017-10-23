@@ -141,11 +141,11 @@ while serverRunning:
                         connection.send(mOut)
                         extDB.close()
 
-                    elif (command[0] == "display"):
+        elif command[0] == "display":
                             mOut = customerDB.display(cDB)
                             connection.send(mOut)
 
-                        elif (command[0] == "show"):
+        elif command[0] == "show":
                             try:
                             showById = int(command[1])
                             mOut = customerDB.show(cDB, int(command[1]))
