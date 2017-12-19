@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="TestServer">
+    <output-path>$PROJECT_DIR$/../</output-path>
+    <root id="root">
+      <element id="archive" name="testserver.jar">
+        <element id="module-output" name="ChatServer" />
+      </element>
+    </root>
+  </artifact>
+</component>

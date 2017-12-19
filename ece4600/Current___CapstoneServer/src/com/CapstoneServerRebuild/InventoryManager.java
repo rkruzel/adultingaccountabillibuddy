@@ -1,6 +1,7 @@
 package com.CapstoneServerRebuild;
 
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class InventoryManager
 {
@@ -9,6 +10,7 @@ public class InventoryManager
     private static int x = 2;
     private static int y = 4;
     private static int z = 2;
+
     private static InventoryPosition[][][] inventoryStock;
     private WorkQueue workQueue;
 
@@ -17,6 +19,7 @@ public class InventoryManager
     {
         inventoryStock = new InventoryPosition[x][y][z];
         workQueue = new WorkQueue();
+
         for (int i = 0; i < inventoryStock.length; i++) {
             for (int j = 0; j < inventoryStock[i].length; j++) {
                 for (int k = 0; k < inventoryStock[i][j].length; k++) {
@@ -26,6 +29,27 @@ public class InventoryManager
             }
         }
     }
+    public boolean jobAvailable()
+    {
+        if (workQueue.queueEmpty())
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
+    public void setWorking(int userId)
+    {
+        String temp = Integer.toString(userId);
+
+    }
+
+
+
+
+
+
 
     public int[] findItem(int partNum)
     {
@@ -76,9 +100,15 @@ class WorkQueue
 {
     LinkedList<String> workQueue;
 
+
     WorkQueue()
     {
         workQueue = new LinkedList<>();
+    }
+
+    public boolean queueEmpty()
+    {
+        return workQueue.isEmpty();
     }
 
     void addToQueue(String job, String value)
@@ -86,7 +116,7 @@ class WorkQueue
         workQueue.addLast(job + "," + value);
     }
 
-    String getJobFromQueue()
+    public String getJobFromQueue()
     {
         // called by
         String newJob = workQueue.poll();

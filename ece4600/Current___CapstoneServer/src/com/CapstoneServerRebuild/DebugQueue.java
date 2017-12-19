@@ -1,4 +1,4 @@
-package com.CapstoneServerRebuild;
+/*package com.CapstoneServerRebuild;
 
 public class DebugQueue
 {
@@ -17,4 +17,4 @@ public class DebugQueue
     {
         this.queue = queue;
     }
-}
+}*/
