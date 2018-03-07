@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000099"
+    tools:context="com.example.rob.wifionoff.MainActivity">
+
+    <ToggleButton
+        android:id="@+id/toggleButton2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="ToggleButton"
+        android:textOff="4"
+        android:textOn="4"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="@+id/preset2"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/preset2" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="ToggleButton"
+        android:textOff="1"
+        android:textOn="1"
+        android:textSize="30sp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/toggleButton5"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/toggleButton5"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="ToggleButton"
+        android:textOff="2"
+        android:textOn="2"
+        android:textSize="30sp"
+        android:layout_marginStart="48dp"
+        app:layout_constraintRight_toRightOf="@+id/toggleButton2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/toggleButton2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="ToggleButton"
+        android:textOff="3"
+        android:textOn="3"
+        android:textSize="30sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButton3"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/button3"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Settings"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteY="14dp"
+        tools:layout_editor_absoluteX="606dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="Preset 1"
+        android:textSize="18sp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/preset2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="Preset 2"
+        android:textSize="18sp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:layout_marginRight="60dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="8dp" />
+</android.support.constraint.ConstraintLayout>

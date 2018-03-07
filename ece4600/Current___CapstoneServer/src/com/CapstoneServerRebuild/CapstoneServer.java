@@ -4,11 +4,10 @@ package com.CapstoneServerRebuild;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static java.awt.GridBagConstraints.CENTER;
-import static java.awt.GridBagConstraints.PAGE_END;
+
 
 public class CapstoneServer extends Frame
 {
@@ -18,47 +17,46 @@ public class CapstoneServer extends Frame
 
     private Label partTitle, queueTitle;
     private TextField nextJob, partNum;
-    private Button getPart, putPart, executeJob, exit, showDetials, closePopup;
+    private Button getPart, putPart, executeJob, exit, showDetials;
     private Checkbox autoRun;
 
     public LinkedList<String> jobQueue;
 
 
+
+
     public CapstoneServer()
     {
-        //InventoryManager = new InventoryManager();
-        //SocketManager = new SocketManager();
+        // instantiate singletons and get instance
+        InventoryManager inventoryManager = InventoryManager.getInstance();
+        SocketManager socketManager = SocketManager.getInstance();
 
         jobQueue = new LinkedList<>();
-        JList<String> queueList;
         setLayout(new GridBagLayout());
-
         GridBagConstraints constraints = new GridBagConstraints();
 
-        partTitle = new Label("Part Number");
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
-        constraints.anchor = PAGE_END;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        partTitle = new Label("Part #");
+        constraints.anchor = CENTER;
+        partTitle.setFont(new Font("Serif",Font.BOLD,20));
+        partTitle.setPreferredSize(new Dimension(100,20));
+        constraints.insets = new Insets(20,5,5,5);
         constraints.gridx = 0;
         constraints.gridy = 0;
         add(partTitle, constraints);
 
         autoRun = new Checkbox("Auto-Run Job",false);
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
         constraints.anchor = CENTER;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5,5,5,5);
         constraints.gridx = 3;
         constraints.gridy = 1;
         autoRun.setEnabled(false);
         add(autoRun,constraints);
 
         queueTitle = new Label("Next Job");
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
         constraints.anchor = CENTER;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        queueTitle.setFont(new Font("Serif",Font.BOLD,20));
+        queueTitle.setPreferredSize(new Dimension(100,20));
+        constraints.insets = new Insets(20,5,5,5);
         constraints.gridx = 4;
         constraints.gridy = 0;
         add(queueTitle,constraints);
@@ -66,30 +64,26 @@ public class CapstoneServer extends Frame
         nextJob = new TextField("Queue Empty", 10);
         nextJob.setEditable(false);
         constraints.anchor = CENTER;
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
+        nextJob.setPreferredSize(new Dimension(100,10));
+        constraints.insets = new Insets(5,5,5,5);
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 4;
         constraints.gridy = 1;
         add(nextJob, constraints);
 
         partNum = new TextField("", 10);
-        partNum.setEditable(true);
         constraints.anchor = CENTER;
-        constraints.weightx = 1;
-        constraints.weighty = 1d;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        partNum.setPreferredSize(new Dimension(100,10));
+        constraints.insets = new Insets(5,5,5,5);
         constraints.gridx = 0;
         constraints.gridy = 1;
         add(partNum, constraints);
 
 
         getPart = new Button("Retrieve Part");
-        constraints.weightx = .5;
         constraints.anchor = CENTER;
-        constraints.weighty = .33;
-        constraints.insets = new Insets(10,5,5,5);
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        getPart.setPreferredSize(new Dimension(100,60));
+        constraints.insets = new Insets(5,5,0,5);
         constraints.gridx = 0;
         constraints.gridy = 2;
         add(getPart, constraints);
@@ -112,7 +106,7 @@ public class CapstoneServer extends Frame
 
                 else
                 {
-                    StringBuilder temp = new StringBuilder("GET: ");
+                    StringBuilder temp = new StringBuilder("GET:");
                     temp.append(partNum.getText());
                     jobQueue.add(temp.toString());
                     partNum.setText("");
@@ -122,11 +116,8 @@ public class CapstoneServer extends Frame
         });
 
         putPart = new Button("Store Part");
-        constraints.weightx = .5;
-        constraints.weighty = .33;
-
-        constraints.insets = new Insets(10,5,5,5);
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5,0,0,0);
+        putPart.setPreferredSize(new Dimension(100,60));
         constraints.gridx = 1;
         constraints.gridy = 2;
         add(putPart, constraints);
@@ -148,7 +139,7 @@ public class CapstoneServer extends Frame
                 }
                 else
                 {
-                    StringBuilder temp = new StringBuilder("STORE: ");
+                    StringBuilder temp = new StringBuilder("STORE:");
                     temp.append(partNum.getText());
                     jobQueue.add(temp.toString());
                     refreshQueue();
@@ -158,10 +149,8 @@ public class CapstoneServer extends Frame
         });
 
         showDetials = new Button("Show Details");
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
-        constraints.anchor = CENTER;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5,0,0,0);
+        showDetials.setPreferredSize(new Dimension(100,60));
         constraints.gridx = 2;
         constraints.gridy = 2;
         add(showDetials, constraints);
@@ -194,10 +183,9 @@ public class CapstoneServer extends Frame
         });
 
         exit = new Button("Exit");
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
-        constraints.anchor = PAGE_END;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = CENTER;
+        exit.setPreferredSize(new Dimension(100,60));
+        constraints.insets = new Insets(5,0,0,0);
         constraints.gridx = 4;
         constraints.gridy = 2;
         add(exit,constraints);
@@ -211,11 +199,10 @@ public class CapstoneServer extends Frame
         });
 
         executeJob = new Button("Run Job");
-        constraints.weightx = .5;
-        constraints.weighty = 1d;
-        constraints.anchor = PAGE_END;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5,0,0,0);
+        constraints.anchor = CENTER;
         constraints.gridx = 3;
+        executeJob.setPreferredSize(new Dimension(100,60));
         constraints.gridy = 2;
         add(executeJob,constraints);
         executeJob.addActionListener(new ActionListener()
@@ -223,19 +210,40 @@ public class CapstoneServer extends Frame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String temp = jobQueue.poll();
+                if (jobQueue.isEmpty())
+                {
+                    final JOptionPane popupMenu = new JOptionPane();
+                    popupMenu.showMessageDialog(null, "Queue empty.");
+                }
 
-                final JOptionPane popupMenu = new JOptionPane();
-                popupMenu.showMessageDialog(null, "Started Job: " + temp);
+                else
+                {
+                    String tempMsg = jobQueue.poll();
+                    String[] temp = formatString(tempMsg);
 
+                    switch(temp[0])
+                    {
+                        case ("GET"):
+                            String message = inventoryManager.getItem(temp[1]);
+                            socketManager.messageOut(message);
+                            break;
+                        case ("STORE"):
+                            inventoryManager.putItem(temp[1]);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    final JOptionPane popupMenu = new JOptionPane();
+                    popupMenu.showMessageDialog(null, "Started Job: " + tempMsg);
+                }
                 refreshQueue();
             }
         });
 
-        setTitle("Warehouse Manager");
-
+        setTitle("Warehouse Manager - G6 ECE4600");
+        setMinimumSize(new Dimension(500,200));
         pack();
-
         setVisible(true);
 
         addWindowListener(new WindowAdapter()
@@ -246,6 +254,12 @@ public class CapstoneServer extends Frame
                 System.exit(0);
             }
         });
+    }
+
+    public String[] formatString(String string)
+    {
+        String[] temp = string.split(":");
+        return temp;
     }
 
     public void refreshQueue()

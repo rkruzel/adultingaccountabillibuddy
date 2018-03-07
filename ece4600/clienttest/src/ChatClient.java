@@ -4,7 +4,7 @@ public class ChatClient
 {
     public static void main(String[] args) throws Exception
     {
-        Socket sock = new Socket(InetAddress.getLocalHost(), 5555);
+        Socket sock = new Socket(InetAddress.getLocalHost(), 4444);
         // reading from keyboard (keyRead object)
         BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
         // sending to client (pwrite object)

@@ -1,25 +1,38 @@
 package com.CapstoneServerRebuild;
 
-import java.util.LinkedList;
-import java.util.Vector;
+import javax.swing.*;
+
 
 public class InventoryManager
 {
+    private static InventoryManager inventoryManager;
+
+
     // location dimensions, x = # of rows, y = # of segments per shelf, z = # of vertical shelves
     // defaults for debugging.
-    private static int x = 2;
-    private static int y = 4;
-    private static int z = 2;
+    private static int x = 1;
+    private static int y = 2;
+    private static int z = 3;
 
     private static InventoryPosition[][][] inventoryStock;
-    private WorkQueue workQueue;
 
-    // def constructor
-    InventoryManager()
+
+    // Singleton implimentation of static class
+    public static synchronized InventoryManager getInstance()
     {
-        inventoryStock = new InventoryPosition[x][y][z];
-        workQueue = new WorkQueue();
+        if (inventoryManager == null)
+        {
+            inventoryManager = new InventoryManager();
+        }
+        return inventoryManager;
+    }
 
+    private InventoryManager()
+    {
+        // create 3 dimension array container for inventory position objects
+        inventoryStock = new InventoryPosition[x][y][z];
+
+        // fill array according to size with defaults
         for (int i = 0; i < inventoryStock.length; i++) {
             for (int j = 0; j < inventoryStock[i].length; j++) {
                 for (int k = 0; k < inventoryStock[i][j].length; k++) {
@@ -29,29 +42,9 @@ public class InventoryManager
             }
         }
     }
-    public boolean jobAvailable()
-    {
-        if (workQueue.queueEmpty())
-        {
-            return false;
-        }
-        else
-            return true;
-    }
-
-    public void setWorking(int userId)
-    {
-        String temp = Integer.toString(userId);
-
-    }
 
 
-
-
-
-
-
-    public int[] findItem(int partNum)
+    public StringBuilder findItem(String partNum)
     {
         // searches for item matching partNum
         for (int i = 0; i < inventoryStock.length; i++) {
@@ -59,18 +52,23 @@ public class InventoryManager
                 for (int k = 0; k < inventoryStock[i][j].length; k++) {
                     if (inventoryStock[i][j][k].getOccupied()) {
                         if (inventoryStock[i][j][k].getPartNumber() == partNum) {
-                            int[] success = {i, j, k};
-                            return success;
+                            StringBuilder temp = new StringBuilder();
+                            temp.append(String.valueOf(i));
+                            temp.append(String.valueOf(j));
+                            temp.append(String.valueOf(k));
+                            temp.append("}");
+                            return temp;
                         }
                     }
                 }
             }
         }
         // no item with partNum exists
+
         return null;
     }
 
-    void putItem(int part) {
+    public void putItem(String part) {
         for (int i = 0; i < inventoryStock.length; i++) {
             for (int j = 0; j < inventoryStock[i].length; j++) {
                 for (int k = 0; k < inventoryStock[i][j].length; k++)
@@ -78,62 +76,41 @@ public class InventoryManager
                     if (!inventoryStock[i][j][k].getOccupied())
                     {
                         inventoryStock[i][j][k].setPartNumber(part);
-
+                        break;
                     }
                 }
             }
         }
     }
 
-    void getItem(int part)
+
+
+    public String getItem(String Part)
     {
-        int[] loc = findItem(part);
+        StringBuilder temp = new StringBuilder();
+        temp.append("{a");
 
-        // send location to robot
-
-        String temp = Integer.toString(part);
-        workQueue.addToQueue(temp, loc.toString());
+        try
+        {
+            temp.append(findItem(Part));
+            return temp.toString();
+        }
+        catch (NullPointerException e)
+        {
+            final JOptionPane popupMenu = new JOptionPane();
+            popupMenu.showMessageDialog(null, "No Item Found");
+            return "0";
+        }
     }
 }
 
-class WorkQueue
-{
-    LinkedList<String> workQueue;
 
-
-    WorkQueue()
-    {
-        workQueue = new LinkedList<>();
-    }
-
-    public boolean queueEmpty()
-    {
-        return workQueue.isEmpty();
-    }
-
-    void addToQueue(String job, String value)
-    {
-        workQueue.addLast(job + "," + value);
-    }
-
-    public String getJobFromQueue()
-    {
-        // called by
-        String newJob = workQueue.poll();
-        return newJob;
-    }
-
-    LinkedList<String> getWorkQueue()
-    {
-        return workQueue;
-    }
-}
 
 class InventoryPosition
 {
     static int[] location = new int[3];
     static boolean isOccupied = false;
-    static int partNumber = 0;
+    static String partNumber = "";
 
     InventoryPosition(int x, int y, int z)
     {
@@ -147,16 +124,16 @@ class InventoryPosition
         return isOccupied;
     }
 
-    int getPartNumber()
+    String getPartNumber()
     {
         return partNumber;
     }
 
-    void setPartNumber(int PartNumber)
+    void setPartNumber(String PartNumber)
     {
         partNumber = PartNumber;
 
-        if (partNumber == 0)
+        if (partNumber.equals(""))
         {
             isOccupied = false;
         }
